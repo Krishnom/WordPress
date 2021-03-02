@@ -9,6 +9,7 @@ RUN set -eux; \
 	apt-get install -y --no-install-recommends \
 # Ghostscript is required for rendering PDF previews
 		ghostscript \
+		dos2unix \
 	; \
 	rm -rf /var/lib/apt/lists/*
 
@@ -125,8 +126,8 @@ RUN set -eux; \
 
 VOLUME /var/www/html
 
-COPY docker-entrypoint.sh /usr/local/bin/
+#COPY docker-entrypoint.sh /usr/local/bin/
 
-RUN dos2unix /usr/local/bin/docker-entrypoint.sh
-ENTRYPOINT ["bash", "/usr/local/bin/docker-entrypoint.sh"]
+RUN dos2unix /usr/src/wordpress/docker-entrypoint.sh
+ENTRYPOINT ["bash", "/usr/src/wordpress/docker-entrypoint.sh"]
 CMD ["apache2-foreground"]
